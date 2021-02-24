@@ -1,4 +1,4 @@
-package Streamss;
+package Streams;
 import java.util.Arrays;
 import java.util.List;
 class Main {
