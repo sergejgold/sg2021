@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Persons {
+public class Stream_lesson1_2 {
     public static void main(String[] args) {
         List<Person> listPersons = new ArrayList<>();
         listPersons.add(new Person(1, "Михаил", 35));
@@ -17,20 +17,18 @@ public class Persons {
         System.out.print("Names > 5:");
         List<String> listNames = listPersons.stream()
                 .map(n -> n.getName()).filter(x -> x.length() > 5)
-                .collect(Collectors.toCollection(ArrayList::new));
-        listNames.stream().forEach(x -> System.out.print(" " + x));
+                .collect(Collectors.toList());
+        listNames.forEach(x -> System.out.print(" " + x));
         System.out.println();
 
 	    // 2.Посчитать всех совершеннолетних людей
         System.out.print("Age > 18: ");
-        long countAge = listPersons.stream().filter(n -> n.getAge() > 18).count();
+        long countAge = listPersons.stream().filter(n -> n.getAge() >= 18).count();
         System.out.println(countAge);
 
         // 3.Отсортировать людей по возрасту, вернуть массив уникальных чисел.
         System.out.print("Age: ");
-            Stream<Integer> listAge =  listPersons.stream().map(x -> x.getAge()).sorted();
-            Integer[] mass = listAge.toArray(Integer[]::new);
-        Arrays.stream(mass).forEach(x -> System.out.print(x + " "));
+            listPersons.stream().map(person -> person.getAge()).distinct().sorted().forEach(x -> System.out.print(x + " "));
 
         // 4.Отсортировать имена людей по алфавиту в обратном порядке
         System.out.println();
@@ -43,19 +41,19 @@ public class Persons {
         // 5.Вернуть true, если в списке людей есть хотя бы один человек, чье имя начинается на «А».
         System.out.println();
         System.out.print("A: ");
-        System.out.println(listPersons.stream().anyMatch(x -> x.getName().charAt(0) == 'А'));
+        System.out.println(listPersons.stream().anyMatch(x -> x.getName().startsWith("A")));
 
         // 6.Найти средний возраст людей
         System.out.println("Average age: " +  listPersons.stream().map(x -> x.getAge()).mapToInt(Integer::intValue).average().getAsDouble());
 
         // 7.Вернуть true, если все имена содержать букву «И»
-        System.out.println(listPersons.stream().allMatch(x -> x.getName().toLowerCase().contains("И")));
+        System.out.println(listPersons.stream().allMatch(x -> x.getName().contains("И")));
 
         // 8.Добавить к id каждого человека + 1, вернуть список людей
         System.out.println(listPersons.stream().collect(Collectors.toMap(a -> a.getId() + 1, l -> l.getName())));
 
         // 9.Вернуть все числа возраста людей (например, есть люди с возрастом 18,40,50, вернуть массив [1,8,4,0,5,0]
-        String[] str = listPersons.stream().map(x -> x.getAge()).map(String::valueOf).flatMap((p) -> Arrays.asList(p.split("")).stream()).toArray(String[]::new);
+        String[] str = listPersons.stream().map(x -> x.getAge()).map(String::valueOf).flatMap((p) -> Arrays.stream(p.split(""))).toArray(String[]::new);
         System.out.println(Arrays.stream(str).collect(Collectors.joining(",", "[","]")));
 
         // 10.Вывести в консоль id всех людей
