@@ -8,7 +8,7 @@ class Main {
         System.out.println("Average: " + list.stream().mapToInt(Integer::intValue).average().getAsDouble());
         // 2. Найти минимальный элемент, значение и индекс
         System.out.println("Min: " + list.stream().mapToInt(Integer::intValue).min().getAsInt()
-                + ", with index: " + list.indexOf(-3));
+                + ", with index: " + list.indexOf(list.stream().mapToInt(Integer::intValue).min().getAsInt()));
         // 3. Посчитать количество элементов равных нулю
         System.out.println("Number of zeros: " + list.stream()
                 .filter(x -> x == 0)
