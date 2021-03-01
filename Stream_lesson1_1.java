@@ -1,7 +1,7 @@
 package Streams;
 import java.util.Arrays;
 import java.util.List;
-class Main {
+public class Stream_lesson1_1 {
     public static void main(String[] args) {
         List<Integer> list = Arrays.asList(5,46,3,0,1,56,123,7,-3,12,14,0);
         // 1. Найти среднее значение элементов массива
